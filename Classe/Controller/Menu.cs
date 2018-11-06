@@ -25,14 +25,17 @@ namespace FinancaDeMesa.Classe.Controller
                 switch (escolha)
                 {
                     case 1:
+                        CadastrarUsuario();
                         break;
                     case 2:
+                        Logar();
                         break;
                     case 3:
-
+                        Design.MensagemChamativa("Até um outro dia!");
                         continue;                    
                     default:
                         Design.MensagemErro("Por favor escolha apenas uma das opções abaixo");
+                        Console.ReadKey();
                         break;
                 }
             }while(escolha != 3);
@@ -41,6 +44,7 @@ namespace FinancaDeMesa.Classe.Controller
         /// Método que mostra a tela de cadastro do usuário, e pede nome, e-mail e senha
         /// </summary>
         public static void CadastrarUsuario(){
+            Console.Clear();
             //criando usuario
             Usuario usuario = new Usuario();
 
@@ -55,6 +59,7 @@ namespace FinancaDeMesa.Classe.Controller
                 }
             }
             while (string.IsNullOrEmpty(usuario.Nome));
+            Console.Clear();
 
             // Inserindo o e-mail
             do
@@ -63,17 +68,53 @@ namespace FinancaDeMesa.Classe.Controller
                 usuario.Email = Console.ReadLine();
             }
             while (string.IsNullOrEmpty(usuario.Email));
+            Console.Clear();
 
             // Inserindo a senha
             do{
-                Design.MensagemInstrucao("Digite o sua senha");
+                Design.MensagemInstrucao("Digite a sua senha");
                 usuario.Senha = Console.ReadLine();
             }while (string.IsNullOrEmpty(usuario.Senha));
+            Console.Clear();
 
             Database.InserirUsuario(usuario);
         }
+        /// <summary>
+        /// Menu onde o usuario deve inserir seu email e sua senha que serão procurados no Database e validados  
+        /// Caso o usuario insira a combinação correta de senha e email ele sera redirecionado para o menu logado
+        /// Ao contrario irá retornar para o menu principal
+        /// </summary>
         private static void Logar(){
+            Console.Clear();
+            string email , senha;
 
+            Design.MensagemInstrucao("Digite o seu email");
+            email = Console.ReadLine();
+
+            //percorre toda a lista no banco de dados
+            foreach(Usuario usuario in Database.usuarios){
+                //se encontrar um email igual ao inserido
+                if(email == usuario.Email){
+                    //loop para o usuario inserir a senha (3 tentativas)
+                    sbyte tentativas = 0;
+                    do{
+                    Design.MensagemInstrucao("Digite a sua senha");
+                    senha = Console.ReadLine();
+                        if(senha == usuario.Senha){
+                            Database.usuarioLogado = usuario;
+                            Logado();
+                        }else{
+                            Design.MensagemErro("Senha incorreta");
+                            tentativas++;
+                        }
+                    }while(senha != usuario.Senha && tentativas < 3);
+
+                    if(tentativas == 3)
+                        Design.MensagemErro("Maximo de tentativas atingido");
+                    break;
+                }
+            }
+            
         }
         #endregion
 
@@ -86,7 +127,26 @@ namespace FinancaDeMesa.Classe.Controller
         /// 4 - Fazer logoff (MenuDeslogado)  
         /// </summary>
         public static void Logado(){
+            Console.Clear();
+            Design.MensagemChamativa($"Seja bem vindo {Database.usuarioLogado.Nome}!");
 
+            sbyte escolha = 0;
+            do{
+                Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Extrato\n3 - Mostrar Relatorio\n4 - Fazer Logoff");
+                switch (escolha)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    default:
+                    break;
+                }
+            }while(escolha !=4);
         }
         /// <summary>
         /// Recebe dados do usuario e cria uma transação e salva elas no ID do usuario  

@@ -9,14 +9,13 @@ namespace FinancaDeMesa
         {
             //Apresentação
             Design.MensagemChamativa("Seja bem vindo!");
-            Design.MensagemProximo();
+            Design.MensagemProximo("Aperte qualquer tecla para continuar");
 
             //Todo o programa ae ;-;
             FinancaDeMesa.Classe.Controller.Menu.Deslogado();
 
             //Fim
-            Design.MensagemChamativa("Até um outro dia!");
-            Design.MensagemProximo();
+            Design.MensagemProximo("Aperte qualquer tecla para sair");
         }
     }
 }

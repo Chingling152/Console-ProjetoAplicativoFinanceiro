@@ -29,12 +29,12 @@ namespace FinancaDeMesa.Classe.Util
             Console.WriteLine($"{mensagem} ≧◡≦");
         }
         /// <summary>
-        /// Mostra uma mensagem "Aperte qualquer tecla para continuar"
+        /// Mostra uma mensagem (Metodo MensagemInstrução)
         /// e só sai do metodo caso o usuario aperte alguma tecla  
         /// quando o usuario aperta qualquer tecla o console é limpado
         /// </summary>
-        public static void MensagemProximo(){
-            MensagemInstrucao("Aperte qualquer tecla para continuar");
+        public static void MensagemProximo(string mensagem){
+            MensagemInstrucao(mensagem);
             Console.ReadKey();
             Console.Clear();
         }
@@ -45,7 +45,7 @@ namespace FinancaDeMesa.Classe.Util
         /// <param name="mensagem"></param>
         public static void MensagemChamativa(string mensagem){
             Console.OutputEncoding = Encoding.UTF8;
-            Console.WriteLine ($"{new string('_',mensagem.Length + 2)} \n| {mensagem} |\n {new string('‾',mensagem.Length + 2 )} ");
+            Console.WriteLine ($"{new string('_',mensagem.Length + 4)}\n| {mensagem} |\n{new string('‾',mensagem.Length + 4)}");
         }
     }
 }
