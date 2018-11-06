@@ -8,6 +8,7 @@ namespace FinancaDeMesa.Classe
 {
     public static class Database
     {
+        public static Usuario usuarioLogado;
         private static List<Usuario> usuarios = new List<Usuario>();
         private static List<Transacao> transacoes = new List<Transacao>();
 

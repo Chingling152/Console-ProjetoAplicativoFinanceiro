@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 namespace FinancaDeMesa.Classe.Util
 {
     public static class Design
@@ -25,6 +26,7 @@ namespace FinancaDeMesa.Classe.Util
         /// </summary>
         /// <param name="mensagem"></param>
         public static void MensagemErro(string mensagem){
+            Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine($"{mensagem} ≧◡≦");
         }
     }

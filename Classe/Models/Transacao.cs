@@ -1,4 +1,6 @@
 using System;
+using FinancaDeMesa.Classe.Util;
+
 namespace FinancaDeMesa.Classe.Models {
 
     public enum tipoTransacao {
@@ -7,26 +9,54 @@ namespace FinancaDeMesa.Classe.Models {
         Invalido = 0
     }
     public class Transacao {
-        public int Id;
+        /// <summary>
+        /// Id da transacao
+        /// </summary>
+        public int ID;
+        /// <summary>
+        /// Define o tipo de transação que será feita
+        /// </summary>
         public tipoTransacao tipo;
+        /// <summary>
+        /// Define a descrição da transação
+        /// </summary>
         public string Descricao;
+        /// <summary>
+        /// Representa a qual usuario essa transação pertence
+        /// </summary>
+        public int IDUsuario;
         private string dataTransacao;
         private double ValorDespesa;
+
+        /// <summary>
+        /// Converte o valor inserido pelo usuario
+        /// </summary>
+        /// <param name="valor">Qualquer valor numerico</param>
         public void ValidarValor (double valor) {
             switch (tipo) {
                 case tipoTransacao.Despesa:
-                    ValorDespesa = valor * -1;
+                    if(valor >= 0){
+                        ValorDespesa = valor * -1;
+                    }else{
+                        ValorDespesa = valor;
+                    }
                     break;
-
                 case tipoTransacao.Receita:
-                    ValorDespesa = valor;
+                    if(valor >= 0){
+                        ValorDespesa = valor;
+                    }else{
+                        ValorDespesa = valor * (- 1);
+                    }
                     break;
-
                 default:
-                    
+                    Design.MensagemErro("Isso não devia acontecer ;-; não sei como você fez isso mas ...  saia já");
                     break;
             }
         }
+        /// <summary>
+        /// Valida a data inseirda pelo usuario e transforma ela em uma string 
+        /// </summary>
+        /// <param name="data">Qualquer valor de data</param>
         public void ValidarData(System.DateTime data){
             if(data.Year >= DateTime.Now.Year ){
                 if(data.Month >= DateTime.Now.Month ){
