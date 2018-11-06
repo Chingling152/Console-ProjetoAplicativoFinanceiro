@@ -1,60 +1,76 @@
 using System;
 using System.Collections.Generic;
+using FinancaDeMesa.Classe.Models;
+using FinancaDeMesa.Classe.Util;
 
 namespace FinancaDeMesa.Classe.Controller
 {
     public static class Menu
     {
-        private static bool Vazia(){
-            return false;
-        }
         #region Metodos deslogado
         /// <summary>
-        /// Método que mostra a tela de cadastro do usuário, e pede nome, e-mail e senha
+        /// Menu onde o usuario terá que inserir um dos valores abaixo : 
         /// 1 - Cadastrar-se (Metodo Cadastrar)  
         /// 2 - Logar (Metodo Logar)     
         /// 3 - Sair (Ignora o do while)  
         /// Qualquer outro valor sera ignorado  
         /// </summary>
+        public static void Deslogado(){
+            sbyte escolha = 0;
+            do{
+                Console.Clear();
+                Console.WriteLine("O Que deseja fazer?\n1- Se Cadastrar\n2 - Login\n3 - Sair");
+
+                sbyte.TryParse(Console.ReadLine(),out escolha);
+                switch (escolha)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+
+                        continue;                    
+                    default:
+                        Design.MensagemErro("Por favor escolha apenas uma das opções abaixo");
+                        break;
+                }
+            }while(escolha != 3);
+        }
+        /// <summary>
+        /// Método que mostra a tela de cadastro do usuário, e pede nome, e-mail e senha
+        /// </summary>
         public static void CadastrarUsuario(){
-            string nome, email, senha;
+            //criando usuario
+            Usuario usuario = new Usuario();
 
             // Inserindo o nome do usuário
             do
             {
-                System.Console.WriteLine("Digite o seu nome");
-                nome = Console.ReadLine();
-                
-                if (string.IsNullOrEmpty(nome))
-                {
+                Design.MensagemInstrucao("Digite o seu nome");
+                usuario.Nome = Console.ReadLine();      
+
+                if (string.IsNullOrEmpty(usuario.Nome)){
                     Console.WriteLine("Nome inválido");
                 }
             }
-            while (string.IsNullOrEmpty(nome));
+            while (string.IsNullOrEmpty(usuario.Nome));
 
             // Inserindo o e-mail
             do
             {
-                Console.WriteLine("Digite o seu endereço de e-mail");
-                email = Console.ReadLine();
-
+                Design.MensagemInstrucao("Digite o seu endereço de e-mail");
+                usuario.Email = Console.ReadLine();
             }
-            while (string.IsNullOrEmpty(email));
+            while (string.IsNullOrEmpty(usuario.Email));
 
+            // Inserindo a senha
             do{
-                Console.WriteLine("Digite o sua senha");
-                senha = Console.ReadLine();
-            }while (string.IsNullOrEmpty(senha));
+                Design.MensagemInstrucao("Digite o sua senha");
+                usuario.Senha = Console.ReadLine();
+            }while (string.IsNullOrEmpty(usuario.Senha));
 
-        }
-        /// <summary>
-        /// Menu onde o usuario terá que inserir um dos valores abaixo :  
-        /// </summary>
-        public static void Deslogado(){
-
-        }
-        private static void Cadastrar(){
-
+            Database.InserirUsuario(usuario);
         }
         private static void Logar(){
 

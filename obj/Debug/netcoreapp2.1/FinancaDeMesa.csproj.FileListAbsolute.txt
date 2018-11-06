@@ -9,3 +9,14 @@ C:\Users\35482820831\Desktop\Console-ProjetoAplicativoFinanceiro\obj\Debug\netco
 C:\Users\35482820831\Desktop\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.AssemblyInfo.cs
 C:\Users\35482820831\Desktop\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.dll
 C:\Users\35482820831\Desktop\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.pdb
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\bin\Debug\netcoreapp2.1\FinancaDeMesa.deps.json
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\bin\Debug\netcoreapp2.1\FinancaDeMesa.runtimeconfig.json
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\bin\Debug\netcoreapp2.1\FinancaDeMesa.runtimeconfig.dev.json
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\bin\Debug\netcoreapp2.1\FinancaDeMesa.dll
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\bin\Debug\netcoreapp2.1\FinancaDeMesa.pdb
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.csprojAssemblyReference.cache
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.csproj.CoreCompileInputs.cache
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.AssemblyInfoInputs.cache
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.AssemblyInfo.cs
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.dll
+C:\Users\debaal\Desktop\Projeto\Console-ProjetoAplicativoFinanceiro\obj\Debug\netcoreapp2.1\FinancaDeMesa.pdb

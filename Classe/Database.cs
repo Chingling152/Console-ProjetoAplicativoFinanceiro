@@ -12,7 +12,12 @@ namespace FinancaDeMesa.Classe
         private static List<Usuario> usuarios = new List<Usuario>();
         private static List<Transacao> transacoes = new List<Transacao>();
 
+        /// <summary>
+        /// Gera um id para o usuario criado e o adiciona ao banco de dados
+        /// </summary>
+        /// <param name="usuario"></param>
         public static void InserirUsuario(Usuario usuario){
+            usuario.ID = usuarios.Count +1;
             usuarios.Add(usuario);
         }
     }
