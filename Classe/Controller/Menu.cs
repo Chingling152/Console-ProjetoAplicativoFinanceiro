@@ -79,6 +79,13 @@ namespace FinancaDeMesa.Classe.Controller
             }while (string.IsNullOrEmpty(usuario.Senha));
             Console.Clear();
 
+            //inserindo data de nascimento
+            do{
+                Design.MensagemInstrucao("Digite a sua data de nascimento");
+                usuario.DataNascimento = DateTime.Parse(Console.ReadLine());
+            }while(string.IsNullOrEmpty(usuario.dataNascimento));
+            Console.Clear();
+
             Database.InserirUsuario(usuario);
         }
         /// <summary>
@@ -108,12 +115,18 @@ namespace FinancaDeMesa.Classe.Controller
                             Design.MensagemErro("Senha incorreta");
                             tentativas++;
                         }
+                        //flag
                         if(tentativas == 3)
                             Design.MensagemErro("Maximo de tentativas atingido");
-                    }while(senha != usuario.Senha && tentativas <= 3);
+                    }while(senha != usuario.Senha && tentativas < 3);
 
                     break;
                 }
+            }
+            //flag
+            if(Database.usuarioLogado == null){
+                Design.MensagemErro("Não existe nenhuma conta com este email");
+                Design.MensagemProximo("Aperte qualquer tecla para continuar");
             }
             
         }
@@ -134,6 +147,7 @@ namespace FinancaDeMesa.Classe.Controller
             sbyte escolha = 0;
             do{
                 Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Saldo\n3 - Mostrar Relatorio\n4 - Fazer Logoff");
+                sbyte.TryParse(Console.ReadLine(),out escolha);
                 switch (escolha)
                 {
                     case 1:
