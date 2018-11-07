@@ -26,7 +26,10 @@ namespace FinancaDeMesa.Classe.Models {
         /// </summary>
         public int IDUsuario;
         private string dataTransacao;
-        private double ValorDespesa;
+        public double ValorDespesa{
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Converte o valor inserido pelo usuario
