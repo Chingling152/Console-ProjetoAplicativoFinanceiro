@@ -10,8 +10,9 @@ namespace FinancaDeMesa
             //Apresentação
             Design.MensagemChamativa("Seja bem vindo!");
             Design.MensagemProximo("Aperte qualquer tecla para continuar");
-
+            
             //Todo o programa ae ;-;
+            FinancaDeMesa.Classe.Database.CarregarDatabase();
             FinancaDeMesa.Classe.Controller.Menu.Deslogado();
 
             //Fim

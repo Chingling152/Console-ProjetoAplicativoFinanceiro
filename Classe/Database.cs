@@ -101,7 +101,6 @@ namespace FinancaDeMesa.Classe
                     usuarioDB.WriteLine($"{item.ID};{item.Nome};{item.Email};{item.Senha};{item.dataNascimento}");
                 }
             }
-            usuarioDB.Flush();
             usuarioDB.Close();
         }
         /// <summary>
@@ -109,19 +108,28 @@ namespace FinancaDeMesa.Classe
         /// </summary>
         private static void SalvarTransacoes(){
             StreamWriter transacaoDB = new StreamWriter(TransacaoDBNome);
-            transacaoDB.Flush();
-
             foreach (Transacao item in transacoes)
             {
                 if(item != null){
-                    transacaoDB.WriteLine($"{item.ID};{item.Descricao};{item.tipo};{item.ValorDespesa};{item.IDUsuario}");
+                    transacaoDB.WriteLine($"{item.ID};{item.Descricao};{(int)item.tipo};{item.ValorDespesa};{item.dataTransacao};{item.IDUsuario}");
                 }
             }
             transacaoDB.Close();
         }
 
         public static void CarregarDatabase(){
+            if(!File.Exists($@"{Environment.CurrentDirectory}\{UsuarioDBNome}")){
+                StreamWriter usuarioDB = new StreamWriter(UsuarioDBNome);
+                usuarioDB.Close();
+            }
+
+            if(!File.Exists($@"{Environment.CurrentDirectory}\{TransacaoDBNome}")){
+                StreamWriter transacaoDB = new StreamWriter(TransacaoDBNome);
+                transacaoDB.Close();
+            }
+
             usuarios = CarregarUsuario();
+            transacoes = CarregarTransacao();
         }
 
         private static List<Usuario> CarregarUsuario(){
@@ -132,11 +140,11 @@ namespace FinancaDeMesa.Classe
             {
                 string[] informacao = leitor.ReadLine().Split(';');
                 Usuario usuario = new Usuario(){
-                    ID = int.Parse(informacao[1]),
-                    Nome = informacao[2],
-                    Email = informacao[3],
-                    Senha = informacao[4],
-                    DataNascimento = DateTime.Parse(informacao[5])
+                    ID = int.Parse(informacao[0]),
+                    Nome = informacao[1],
+                    Email = informacao[2],
+                    Senha = informacao[3],
+                    DataNascimento = DateTime.Parse(informacao[4])
                 };
                 tempDB.Add(usuario);
             }
@@ -151,10 +159,16 @@ namespace FinancaDeMesa.Classe
             while (!leitor.EndOfStream)
             {
                 string[] informacao = leitor.ReadLine().Split(';');
-                Transacao usuario = new Transacao(){
-                    ID = int.Parse(informacao[1]),
+                Transacao transacao = new Transacao(){
+                    ID = int.Parse(informacao[0]),
+                    Descricao = informacao[1],
+                    tipo = (tipoTransacao)int.Parse(informacao[2]),
+                    IDUsuario = int.Parse(informacao[5])
                 };
-                tempDB.Add(usuario);
+                transacao.ValidarValor(double.Parse(informacao[3]));
+                transacao.ValidarData(DateTime.Parse(informacao[4]));
+
+                tempDB.Add(transacao);
             }
             
             leitor.Close();

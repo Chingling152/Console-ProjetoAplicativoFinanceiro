@@ -37,7 +37,7 @@ namespace FinancaDeMesa.Classe.Models
             }
             set{
                 if(value.Contains('@') && value.Contains('.')){
-                    email = value;
+                    email = value.ToLower();
                 }else{
                     Design.MensagemErro("O Email inserido é invalido");
                 }

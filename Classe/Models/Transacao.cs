@@ -6,7 +6,6 @@ namespace FinancaDeMesa.Classe.Models {
     public enum tipoTransacao {
         Despesa = 1,
         Receita = 2,
-        Invalido = 3
     }
     public class Transacao {
         /// <summary>
@@ -25,7 +24,10 @@ namespace FinancaDeMesa.Classe.Models {
         /// Representa a qual usuario essa transação pertence
         /// </summary>
         public int IDUsuario;
-        private string dataTransacao;
+        public string dataTransacao{
+            get;
+            private set;
+        }
         public double ValorDespesa{
             get;
             private set;

@@ -176,16 +176,16 @@ namespace FinancaDeMesa.Classe.Controller
         /// Recebe dados do usuario e cria uma transação e salva elas no ID do usuario  
         /// </summary>
         private static void EfetuarTransacao(){
-            Transacao transacao = new Transacao();
-            sbyte escolha = 0;
+            int escolha = 0;
             do{
                 Console.Clear();
                 Design.MensagemInstrucao("Insira o tipo de transação");
 
                 Console.WriteLine("1 - Receita\n2 - Despesa\n3 - Sair");
                 
-                sbyte.TryParse(Console.ReadLine(),out escolha);
+                int.TryParse(Console.ReadLine(),out escolha);
 
+                Transacao transacao = new Transacao();
                 transacao.tipo = (tipoTransacao)escolha;
                 switch (escolha)
                 {
@@ -217,6 +217,7 @@ namespace FinancaDeMesa.Classe.Controller
                         Console.Clear();
                         break;
                 }
+                Database.SalvarDatabase();
             }while(escolha != 3);
         }
         /// <summary>
