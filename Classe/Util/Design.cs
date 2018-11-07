@@ -23,7 +23,7 @@ namespace FinancaDeMesa.Classe.Util
         /// Mostra uma mensagem de erro :     
         /// mensagem ≧◡≦
         /// </summary>
-        /// <param name="mensagem"></param>
+        /// <param name="mensagem">MENSAGEM QUE FICARÁ ESTRANHA</param>
         public static void MensagemErro(string mensagem){
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine($"{mensagem} ≧◡≦");

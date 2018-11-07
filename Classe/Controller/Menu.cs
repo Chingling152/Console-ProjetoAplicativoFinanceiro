@@ -29,6 +29,8 @@ namespace FinancaDeMesa.Classe.Controller
                         break;
                     case 2:
                         Logar();
+                        if(Database.usuarioLogado != null)
+                            Logado();
                         break;
                     case 3:
                         Design.MensagemChamativa("Até um outro dia!");
@@ -102,15 +104,14 @@ namespace FinancaDeMesa.Classe.Controller
                     senha = Console.ReadLine();
                         if(senha == usuario.Senha){
                             Database.usuarioLogado = usuario;
-                            Logado();
                         }else{
                             Design.MensagemErro("Senha incorreta");
                             tentativas++;
                         }
-                    }while(senha != usuario.Senha && tentativas < 3);
+                        if(tentativas == 3)
+                            Design.MensagemErro("Maximo de tentativas atingido");
+                    }while(senha != usuario.Senha && tentativas <= 3);
 
-                    if(tentativas == 3)
-                        Design.MensagemErro("Maximo de tentativas atingido");
                     break;
                 }
             }
@@ -122,7 +123,7 @@ namespace FinancaDeMesa.Classe.Controller
         /// <summary>
         /// Menu onde o usuario deve inserir um dos valores abaixo :  
         /// 1 - Efetuar Transação     
-        /// 2 - Mostrar Extrato   
+        /// 2 - Mostrar Saldo   
         /// 3 - Mostrar Relatorio   
         /// 4 - Fazer logoff (MenuDeslogado)  
         /// </summary>
@@ -132,16 +133,20 @@ namespace FinancaDeMesa.Classe.Controller
 
             sbyte escolha = 0;
             do{
-                Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Extrato\n3 - Mostrar Relatorio\n4 - Fazer Logoff");
+                Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Saldo\n3 - Mostrar Relatorio\n4 - Fazer Logoff");
                 switch (escolha)
                 {
                     case 1:
+                        EfetuarTransacao();
                         break;
                     case 2:
+                        MostrarSaldo();
                         break;
                     case 3:
+                        MostrarRelatorio();
                         break;
                     case 4:
+                        
                         break;
                     default:
                     break;
@@ -155,10 +160,30 @@ namespace FinancaDeMesa.Classe.Controller
 
         }
         /// <summary>
-        /// Mostra todas as transações feitas pelo usuario
+        /// Mostra o saldo do usuario baseando-se na lista de transações
         /// </summary>
-        private static void MostrarExtrato(){
-
+        private static void MostrarSaldo(){
+            double Saldo = 0;
+            foreach (Transacao item in Database.transacoes)
+            {
+                if(item.IDUsuario == Database.usuarioLogado.ID){
+                    switch (item.tipo)
+                    {
+                        case tipoTransacao.Despesa:
+                            Saldo -= item.ValorDespesa;
+                            break;
+                        case tipoTransacao.Receita:
+                            Saldo += item.ValorDespesa;
+                            break;
+                        default:
+                            Saldo = 0;
+                            break;
+                    }
+                }else{
+                    continue;
+                }
+            }
+            Console.WriteLine($"\nSeu saldo é de R${Saldo.ToString("N2")}\n");
         }
         /// <summary>
         /// Salva o banco de dados em um arquivo .zip
@@ -182,6 +207,9 @@ namespace FinancaDeMesa.Classe.Controller
 
         }
         private static void MostrarTransacao(){
+
+        }
+        private static void Logoff(){
 
         }
         #endregion

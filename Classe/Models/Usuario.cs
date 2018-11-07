@@ -20,7 +20,10 @@ namespace FinancaDeMesa.Classe.Models
         /// Define a data de nasicmento do usuario
         /// </summary>
         /// <value></value>
-        public string dataNascimento{get ;private set;}
+        public string dataNascimento{
+            get ;
+            private set;
+        }
         #endregion
 
         #region Validação
@@ -50,7 +53,7 @@ namespace FinancaDeMesa.Classe.Models
             }
             set{
                 if(value.Length > 8){
-                    email = value;
+                    senha = value;
                 }else{
                     Design.MensagemErro("A senha inserida é invalida");
                 }
