@@ -9,6 +9,7 @@ namespace FinancaDeMesa.Classe
 {
     public static class Database
     {
+        #region Usuarios
         public static Usuario usuarioLogado = null;
         /// <summary>
         /// Lista onde ficam armazenados todos os usuarios
@@ -20,15 +21,6 @@ namespace FinancaDeMesa.Classe
         } = new List<Usuario>();
 
         /// <summary>
-        /// Lista onde ficam armazenadas todas as transações
-        /// </summary>
-        /// <value></value>
-        public static List<Transacao> transacoes{
-            private set ; 
-            get;
-        } = new List<Transacao>();
-
-        /// <summary>
         /// Gera um id para o usuario criado e o adiciona ao banco de dados
         /// </summary>
         /// <param name="usuario"></param>
@@ -38,6 +30,18 @@ namespace FinancaDeMesa.Classe
             Design.MensagemSucesso($"Usuario {usuario.Nome} adicionado no id {usuario.ID} com sucesso!");
             Design.MensagemProximo("Aperte qualquer tecla para continuar");
         }
+        #endregion
+        
+        #region Transações
+        
+        /// <summary>
+        /// Lista onde ficam armazenadas todas as transações
+        /// </summary>
+        /// <value></value>
+        public static List<Transacao> transacoes{
+            private set ; 
+            get;
+        } = new List<Transacao>();
         /// <summary>
         /// Retorna uma lista de transações que combinem com o id inserido
         /// </summary>
@@ -47,7 +51,7 @@ namespace FinancaDeMesa.Classe
             List<Transacao> lista = new List<Transacao>();
             foreach (Transacao item in transacoes)
             {
-                if(item.ID == id){
+                if(item.IDUsuario == id){
                     lista.Add(item);
                 }
             }
@@ -58,12 +62,41 @@ namespace FinancaDeMesa.Classe
         /// </summary>
         /// <param name="transacao"></param>
         public static void InserirTransacao(Transacao transacao){
-            transacao.ID = usuarios.Count +1;
+            transacao.ID = transacoes.Count +1;
             transacao.IDUsuario = usuarioLogado.ID;
 
             transacoes.Add(transacao);
             Design.MensagemSucesso($"Transação {transacao.ID} adicionado no usuario {usuarioLogado.Nome} com sucesso!");
             Design.MensagemProximo("Aperte qualquer tecla para continuar");
+        }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SalvarDatabase(){
+            StreamWriter usuarioDB = new StreamWriter("Usuario.csv");
+            StreamWriter transacaoDB = new StreamWriter("Transacao.csv");
+
+            usuarioDB.Flush();
+            transacaoDB.Flush();
+
+            foreach (Usuario item in usuarios)
+            {
+                if(item != null){
+                    usuarioDB.WriteLine($"{item.ID};{item.Nome};{item.Email};{item.Senha};{item.dataNascimento}");
+                }
+            }
+
+            foreach (Transacao item in transacoes)
+            {
+                if(item != null){
+                    transacaoDB.WriteLine($"{item.ID};{item.Descricao};{item.tipo};{item.ValorDespesa};{item.IDUsuario}");
+                }
+            }
+
+            usuarioDB.Close();
+            transacaoDB.Close();
         }
     }
 }

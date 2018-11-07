@@ -181,7 +181,7 @@ namespace FinancaDeMesa.Classe.Controller
                 Console.Clear();
                 Design.MensagemInstrucao("Insira o tipo de transação");
 
-                Console.WriteLine("1 - Receita\n 2 - Despesa\n 3 - Sair");
+                Console.WriteLine("1 - Receita\n2 - Despesa\n3 - Sair");
                 sbyte.TryParse(Console.ReadLine(),out escolha);
 
                 transacao.tipo = (tipoTransacao)escolha;

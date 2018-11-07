@@ -52,7 +52,7 @@ namespace FinancaDeMesa.Classe.Models
                 return senha;
             }
             set{
-                if(value.Length > 8){
+                if(value.Length >= 8){
                     senha = value;
                 }else{
                     Design.MensagemErro("A senha inserida é invalida");
