@@ -65,8 +65,8 @@ namespace FinancaDeMesa.Classe.Models
         /// <value>**Valor valido** : data de nascimento com diferença de 18 anos ou mais da data atual</value>
         public System.DateTime DataNascimento{
             set {
-                if(value.Year - System.DateTime.Now.Year < 18){
-                    Design.MensagemErro("Menor de 18 anos num pode ;-;");
+                if(System.DateTime.Now.Year - value.Year < 18 && System.DateTime.Now.Year - value.Year > 100){
+                    Design.MensagemErro("Idade invalida");
                 }else{
                     dataNascimento = value.ToShortDateString();
                 }

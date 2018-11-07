@@ -160,7 +160,7 @@ namespace FinancaDeMesa.Classe.Controller
                         MostrarRelatorio();
                         break;
                     case 4:
-                        
+                        Logoff();
                         break;
                     default:
                     break;
@@ -171,7 +171,11 @@ namespace FinancaDeMesa.Classe.Controller
         /// Recebe dados do usuario e cria uma transação e salva elas no ID do usuario  
         /// </summary>
         private static void EfetuarTransacao(){
-
+            sbyte escolha = 0;
+            do{
+                Design.MensagemInstrucao("Insira o tipo de transação");
+                sbyte.TryParse(Console.ReadLine(),out escolha);
+            }while(escolha != 3);
         }
         /// <summary>
         /// Mostra o saldo do usuario baseando-se na lista de transações
