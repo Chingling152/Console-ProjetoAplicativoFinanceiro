@@ -82,7 +82,8 @@ namespace FinancaDeMesa.Classe.Controller
             //inserindo data de nascimento
             do{
                 Design.MensagemInstrucao("Digite a sua data de nascimento");
-                usuario.DataNascimento = DateTime.Parse(Console.ReadLine());
+                DateTime.TryParse(Console.ReadLine(),out DateTime tempData);
+                usuario.DataNascimento = tempData;
             }while(string.IsNullOrEmpty(usuario.dataNascimento));
             Console.Clear();
 
@@ -164,6 +165,8 @@ namespace FinancaDeMesa.Classe.Controller
                         break;
                     default:
                         Design.MensagemErro("Valor invalido! ");
+                        Design.MensagemProximo("Aperte qualquer tecla para continuar");
+                        Console.Clear();
                     break;
                 }
             }while(escolha !=4);
@@ -172,20 +175,45 @@ namespace FinancaDeMesa.Classe.Controller
         /// Recebe dados do usuario e cria uma transação e salva elas no ID do usuario  
         /// </summary>
         private static void EfetuarTransacao(){
+            Transacao transacao = new Transacao();
             sbyte escolha = 0;
             do{
+                Console.Clear();
                 Design.MensagemInstrucao("Insira o tipo de transação");
+
+                Console.WriteLine("1 - Receita\n 2 - Despesa\n 3 - Sair");
                 sbyte.TryParse(Console.ReadLine(),out escolha);
+
+                transacao.tipo = (tipoTransacao)escolha;
                 switch (escolha)
                 {
-                    case 1:
-                        break;
-                    case 2:
-                        break;
+                    case 1 :
+                    case 2 :  
+                        Console.Clear();
+                        Design.MensagemInstrucao("Insira uma descrição para a transação");
+                        transacao.Descricao = Console.ReadLine();
+
+                        Console.Clear();
+                        Design.MensagemInstrucao("Insira a data da transação");                        
+                        DateTime.TryParse(Console.ReadLine(),out DateTime data);
+                        transacao.ValidarData(data);
+
+                        Console.Clear();
+                        Design.MensagemInstrucao("Insira um valor para a transação");
+                        double.TryParse(Console.ReadLine(),out double tempValor);
+                        transacao.ValidarValor(tempValor);
+
+                        Database.InserirTransacao(transacao);
+                        break;                    
                     case 3:
+                        transacao = null;
+                        Design.MensagemProximo("Aperte qualquer tecla");
                         break;
                     default:
-                    break;
+                        Design.MensagemErro("Valor invalido");
+                        Design.MensagemProximo("Aperte qualquer tecla para continuar");
+                        Console.Clear();
+                        break;
                 }
             }while(escolha != 3);
         }

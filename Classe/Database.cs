@@ -53,5 +53,17 @@ namespace FinancaDeMesa.Classe
             }
             return lista;
         } 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="transacao"></param>
+        public static void InserirTransacao(Transacao transacao){
+            transacao.ID = usuarios.Count +1;
+            transacao.IDUsuario = usuarioLogado.ID;
+
+            transacoes.Add(transacao);
+            Design.MensagemSucesso($"Transação {transacao.ID} adicionado no usuario {usuarioLogado.Nome} com sucesso!");
+            Design.MensagemProximo("Aperte qualquer tecla para continuar");
+        }
     }
 }

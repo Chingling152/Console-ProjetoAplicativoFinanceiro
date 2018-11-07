@@ -6,7 +6,7 @@ namespace FinancaDeMesa.Classe.Models {
     public enum tipoTransacao {
         Despesa = 1,
         Receita = 2,
-        Invalido = 0
+        Invalido = 3
     }
     public class Transacao {
         /// <summary>
