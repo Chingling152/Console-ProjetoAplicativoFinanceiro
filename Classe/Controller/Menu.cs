@@ -7,7 +7,8 @@ namespace FinancaDeMesa.Classe.Controller
 {
     public static class Menu
     {
-        #region Metodos deslogado
+
+        #region Menus 
         /// <summary>
         /// Menu onde o usuario terá que inserir um dos valores abaixo : 
         /// 1 - Cadastrar-se (Metodo Cadastrar)  
@@ -40,8 +41,51 @@ namespace FinancaDeMesa.Classe.Controller
                         Console.ReadKey();
                         break;
                 }
+                Database.SalvarDatabase();
             }while(escolha != 3);
         }
+
+        /// <summary>
+        /// Menu onde o usuario deve inserir um dos valores abaixo :  
+        /// 1 - Efetuar Transação     
+        /// 2 - Mostrar Saldo   
+        /// 3 - Mostrar Relatorio   
+        /// 4 - Fazer logoff (MenuDeslogado)  
+        /// </summary>
+        public static void Logado(){
+            Console.Clear();
+            Design.MensagemChamativa($"Seja bem vindo {Database.usuarioLogado.Nome}!");
+
+            sbyte escolha = 0;
+            do{
+                Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Saldo\n3 - Mostrar Relatorio\n4 - Fazer Logoff");
+                sbyte.TryParse(Console.ReadLine(),out escolha);
+                switch (escolha)
+                {
+                    case 1:
+                        EfetuarTransacao();
+                        break;
+                    case 2:
+                        MostrarSaldo();
+                        break;
+                    case 3:
+                        MostrarRelatorio();
+                        break;
+                    case 4:
+                        Logoff();
+                        break;
+                    default:
+                        Design.MensagemErro("Valor invalido! ");
+                        Design.MensagemProximo("Aperte qualquer tecla para continuar");
+                        Console.Clear();
+                    break;
+                }
+                Database.SalvarDatabase();
+            }while(escolha !=4);
+        }
+        #endregion
+        #region Metodos deslogado
+        
         /// <summary>
         /// Método que mostra a tela de cadastro do usuário, e pede nome, e-mail e senha
         /// </summary>
@@ -134,43 +178,7 @@ namespace FinancaDeMesa.Classe.Controller
         #endregion
 
         #region Metodos logado
-        /// <summary>
-        /// Menu onde o usuario deve inserir um dos valores abaixo :  
-        /// 1 - Efetuar Transação     
-        /// 2 - Mostrar Saldo   
-        /// 3 - Mostrar Relatorio   
-        /// 4 - Fazer logoff (MenuDeslogado)  
-        /// </summary>
-        public static void Logado(){
-            Console.Clear();
-            Design.MensagemChamativa($"Seja bem vindo {Database.usuarioLogado.Nome}!");
-
-            sbyte escolha = 0;
-            do{
-                Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Saldo\n3 - Mostrar Relatorio\n4 - Fazer Logoff");
-                sbyte.TryParse(Console.ReadLine(),out escolha);
-                switch (escolha)
-                {
-                    case 1:
-                        EfetuarTransacao();
-                        break;
-                    case 2:
-                        MostrarSaldo();
-                        break;
-                    case 3:
-                        MostrarRelatorio();
-                        break;
-                    case 4:
-                        Logoff();
-                        break;
-                    default:
-                        Design.MensagemErro("Valor invalido! ");
-                        Design.MensagemProximo("Aperte qualquer tecla para continuar");
-                        Console.Clear();
-                    break;
-                }
-            }while(escolha !=4);
-        }
+        
         /// <summary>
         /// Recebe dados do usuario e cria uma transação e salva elas no ID do usuario  
         /// </summary>

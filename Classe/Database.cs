@@ -71,22 +71,38 @@ namespace FinancaDeMesa.Classe
         }
         #endregion
 
+        #region Banco De Dados
+
+        public static string UsuarioDBNome = "Usuario.csv";
+        public static string TransacaoDBNome = "Transacao.csv";
+
         /// <summary>
         /// 
         /// </summary>
         public static void SalvarDatabase(){
-            StreamWriter usuarioDB = new StreamWriter("Usuario.csv");
-            StreamWriter transacaoDB = new StreamWriter("Transacao.csv");
-
-            usuarioDB.Flush();
-            transacaoDB.Flush();
-
+            SalvarUsuarios();
+            SalvarTransacoes();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        private static void SalvarUsuarios(){
+            StreamWriter usuarioDB = new StreamWriter(UsuarioDBNome);
             foreach (Usuario item in usuarios)
             {
                 if(item != null){
                     usuarioDB.WriteLine($"{item.ID};{item.Nome};{item.Email};{item.Senha};{item.dataNascimento}");
                 }
             }
+            usuarioDB.Flush();
+            usuarioDB.Close();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        private static void SalvarTransacoes(){
+            StreamWriter transacaoDB = new StreamWriter(TransacaoDBNome);
+            transacaoDB.Flush();
 
             foreach (Transacao item in transacoes)
             {
@@ -94,9 +110,32 @@ namespace FinancaDeMesa.Classe
                     transacaoDB.WriteLine($"{item.ID};{item.Descricao};{item.tipo};{item.ValorDespesa};{item.IDUsuario}");
                 }
             }
-
-            usuarioDB.Close();
             transacaoDB.Close();
         }
+
+        public static void CarregarDatabase(){
+            usuarios = CarregarUsuario();
+        }
+
+        private static List<Usuario> CarregarUsuario(){
+            List<Usuario> tempDB = new List<Usuario>();
+            StreamReader leitor = new StreamReader(UsuarioDBNome);
+
+            while (!leitor.EndOfStream)
+            {
+                string[] informacao = leitor.ReadLine().Split(';');
+                Usuario usuario = new Usuario(){
+                    ID = int.Parse(informacao[1]),
+                    Nome = informacao[2],
+                    Email = informacao[3],
+                    Senha = informacao[4],
+                    DataNascimento = DateTime.Parse(informacao[5])
+                };
+                tempDB.Add(usuario);
+            }
+
+            return tempDB;
+        }
+        #endregion
     }
 }
