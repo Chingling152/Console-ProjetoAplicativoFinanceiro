@@ -163,6 +163,7 @@ namespace FinancaDeMesa.Classe.Controller
                         Logoff();
                         break;
                     default:
+                        Design.MensagemErro("Valor invalido! ");
                     break;
                 }
             }while(escolha !=4);
@@ -175,6 +176,17 @@ namespace FinancaDeMesa.Classe.Controller
             do{
                 Design.MensagemInstrucao("Insira o tipo de transação");
                 sbyte.TryParse(Console.ReadLine(),out escolha);
+                switch (escolha)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    default:
+                    break;
+                }
             }while(escolha != 3);
         }
         /// <summary>

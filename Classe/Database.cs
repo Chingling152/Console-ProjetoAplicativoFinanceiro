@@ -38,6 +38,7 @@ namespace FinancaDeMesa.Classe
             Design.MensagemSucesso($"Usuario {usuario.Nome} adicionado no id {usuario.ID} com sucesso!");
             Design.MensagemProximo("Aperte qualquer tecla para continuar");
         }
+        
         public static List<Transacao> BuscarTransacao(){
             List<Transacao> lista = new List<Transacao>();
             return lista;
