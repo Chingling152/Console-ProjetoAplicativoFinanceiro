@@ -145,31 +145,24 @@ namespace FinancaDeMesa.Classe.Controller
             Design.MensagemInstrucao("Digite o seu email");
             email = Console.ReadLine();
 
-            //percorre toda a lista no banco de dados
-            foreach(Usuario usuario in Database.usuarios){
-                //se encontrar um email igual ao inserido
-                if(email == usuario.Email){
-                    //loop para o usuario inserir a senha (3 tentativas)
-                    sbyte tentativas = 0;
-                    do{
-                    Design.MensagemInstrucao("Digite a sua senha");
-                    senha = Console.ReadLine();
-                        if(senha == usuario.Senha){
-                            Database.usuarioLogado = usuario;
-                        }else{
-                            Design.MensagemErro("Senha incorreta");
-                            tentativas++;
-                        }
-                        //flag
-                        if(tentativas == 3)
-                            Design.MensagemErro("Maximo de tentativas atingido");
-                    }while(senha != usuario.Senha && tentativas < 3);
-
-                    break;
-                }
-            }
-            //flag
-            if(Database.usuarioLogado == null){
+            Usuario usuarioSelecionado = Database.ValidarEmail(email);
+            if(usuarioSelecionado != null){
+                sbyte tentativas = 0;
+                do{
+                Design.MensagemInstrucao("Digite a sua senha");
+                senha = Console.ReadLine();
+                    if(senha == usuarioSelecionado.Senha){
+                        Database.usuarioLogado = usuarioSelecionado;
+                        break;
+                    }else{
+                        Design.MensagemErro("Senha incorreta");
+                        tentativas++;
+                    }
+                    //flag
+                    if(tentativas == 3)
+                        Design.MensagemErro("Maximo de tentativas atingido");
+                }while(tentativas < 3);
+            }else{
                 Design.MensagemErro("Não existe nenhuma conta com este email");
                 Design.MensagemProximo("Aperte qualquer tecla para continuar");
             }
@@ -190,6 +183,7 @@ namespace FinancaDeMesa.Classe.Controller
                 Design.MensagemInstrucao("Insira o tipo de transação");
 
                 Console.WriteLine("1 - Receita\n2 - Despesa\n3 - Sair");
+                
                 sbyte.TryParse(Console.ReadLine(),out escolha);
 
                 transacao.tipo = (tipoTransacao)escolha;

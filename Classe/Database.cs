@@ -73,7 +73,14 @@ namespace FinancaDeMesa.Classe
 
         #region Banco De Dados
 
+        /// <summary>
+        /// Nome do arquivo que será criado para armazenar a lista de usuarios
+        /// </summary>
         public static string UsuarioDBNome = "Usuario.csv";
+
+        /// <summary>
+        /// Nome do arquivo que será criado para armazenar a lista de transações
+        /// </summary>
         public static string TransacaoDBNome = "Transacao.csv";
 
         /// <summary>
@@ -84,7 +91,7 @@ namespace FinancaDeMesa.Classe
             SalvarTransacoes();
         }
         /// <summary>
-        /// 
+        /// Salva todos os usuarios da lista usuarios em um arquivo .csv 
         /// </summary>
         private static void SalvarUsuarios(){
             StreamWriter usuarioDB = new StreamWriter(UsuarioDBNome);
@@ -98,7 +105,7 @@ namespace FinancaDeMesa.Classe
             usuarioDB.Close();
         }
         /// <summary>
-        /// 
+        /// Salva todas as transações da lista transações em um arquivo .csv
         /// </summary>
         private static void SalvarTransacoes(){
             StreamWriter transacaoDB = new StreamWriter(TransacaoDBNome);
@@ -134,7 +141,44 @@ namespace FinancaDeMesa.Classe
                 tempDB.Add(usuario);
             }
 
+            leitor.Close();
             return tempDB;
+        }
+        private static List<Transacao> CarregarTransacao(){
+            List<Transacao> tempDB = new List<Transacao>();
+            StreamReader leitor = new StreamReader(TransacaoDBNome);
+
+            while (!leitor.EndOfStream)
+            {
+                string[] informacao = leitor.ReadLine().Split(';');
+                Transacao usuario = new Transacao(){
+                    ID = int.Parse(informacao[1]),
+                };
+                tempDB.Add(usuario);
+            }
+            
+            leitor.Close();
+            return tempDB;
+        }
+        #endregion
+
+        #region Validação
+        /// <summary>
+        /// Verifica se existe algum usuario no banco de dados com o email inserido e o retorna
+        /// </summary>
+        /// <param name="email">Email do usuario a ser procurado</param>
+        /// <returns>O usuario encontrado (caso não exista , retorna null)</returns>
+        public static Usuario ValidarEmail(string email){
+            Usuario retorno = null;
+            //percorre toda a lista no banco de dados
+            foreach(Usuario usuario in Database.usuarios){
+                //se encontrar um email igual ao inserido
+                if(email == usuario.Email){
+                    retorno = usuario;
+                    break;
+                }
+            }
+            return retorno;
         }
         #endregion
     }
