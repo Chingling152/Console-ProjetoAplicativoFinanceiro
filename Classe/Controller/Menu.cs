@@ -182,24 +182,21 @@ namespace FinancaDeMesa.Classe.Controller
         /// </summary>
         private static void MostrarSaldo(){
             double Saldo = 0;
-            foreach (Transacao item in Database.transacoes)
-            {
-                if(item.IDUsuario == Database.usuarioLogado.ID){
-                    switch (item.tipo)
-                    {
-                        case tipoTransacao.Despesa:
-                            Saldo -= item.ValorDespesa;
-                            break;
-                        case tipoTransacao.Receita:
-                            Saldo += item.ValorDespesa;
-                            break;
-                        default:
-                            Saldo = 0;
-                            break;
+            List<Transacao> lista = Database.BuscarTransacao(Database.usuarioLogado.ID);
+            foreach (Transacao item in lista)
+            {               
+                switch (item.tipo)
+                {
+                    case tipoTransacao.Despesa:
+                        Saldo -= item.ValorDespesa;
+                        break;
+                    case tipoTransacao.Receita:
+                        Saldo += item.ValorDespesa;
+                        break;
+                    default:
+                        Saldo = 0;
+                        break;
                     }
-                }else{
-                    continue;
-                }
             }
             Console.WriteLine($"\nSeu saldo é de R${Saldo.ToString("N2")}\n");
         }

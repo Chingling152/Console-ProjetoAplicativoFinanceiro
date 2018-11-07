@@ -38,8 +38,19 @@ namespace FinancaDeMesa.Classe
             Design.MensagemSucesso($"Usuario {usuario.Nome} adicionado no id {usuario.ID} com sucesso!");
             Design.MensagemProximo("Aperte qualquer tecla para continuar");
         }
-        public static List<Transacao> BuscarTransacao(){
+        /// <summary>
+        /// Retorna uma lista de transações que combinem com o id inserido
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static List<Transacao> BuscarTransacao(int id){
             List<Transacao> lista = new List<Transacao>();
+            foreach (Transacao item in transacoes)
+            {
+                if(item.ID == id){
+                    lista.Add(item);
+                }
+            }
             return lista;
         } 
     }
