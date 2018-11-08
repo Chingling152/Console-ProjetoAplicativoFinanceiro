@@ -14,7 +14,7 @@ namespace FinancaDeMesa
             //Todo o programa ae ;-;
             FinancaDeMesa.Classe.Database.CarregarDatabase();
             FinancaDeMesa.Classe.Controller.Menu.Deslogado();
-
+            
             //Fim
             Design.MensagemProximo("Aperte qualquer tecla para sair");
         }

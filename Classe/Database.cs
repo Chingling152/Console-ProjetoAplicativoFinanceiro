@@ -1,6 +1,6 @@
 using System.IO;
-using System;
 using System.IO.Compression;
+using System;
 using System.Collections.Generic;
 using FinancaDeMesa.Classe.Models;
 using FinancaDeMesa.Classe.Util;
@@ -193,6 +193,30 @@ namespace FinancaDeMesa.Classe
                 }
             }
             return retorno;
+        }
+        #endregion
+
+        #region Outros
+        public static void Exportar(){  
+            // procura qualquer arquivo .csv e salva o caminho
+            string[] arquivos = Directory.GetFiles(Environment.CurrentDirectory, "*.csv");
+
+            //variavel do caminho do database
+            string diretorio = Environment.CurrentDirectory + "/Database";
+            
+            // se o diretorio não existir ele cria um
+            if(!Directory.Exists(diretorio)){
+                Directory.CreateDirectory(diretorio);
+            }
+
+            //percorre a array arquivos e copia os arquivos armazenas para dentro do database
+            for(int i = 0 ; i < arquivos.Length ; i++){
+                FileInfo info = new FileInfo(arquivos[i]);
+                string nome = info.Name;
+                File.Copy(arquivos[i],$@"{diretorio}\{nome}");
+            }
+            
+            ZipFile.CreateFromDirectory(diretorio,Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
         }
         #endregion
     }

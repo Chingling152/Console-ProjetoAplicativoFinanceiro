@@ -20,7 +20,7 @@ namespace FinancaDeMesa.Classe.Controller
             sbyte escolha = 0;
             do{
                 Console.Clear();
-                Console.WriteLine("O Que deseja fazer?\n1- Se Cadastrar\n2 - Login\n3 - Sair");
+                Console.WriteLine("O Que deseja fazer?\n1 - Se Cadastrar\n2 - Login\n3 - Sair");
 
                 sbyte.TryParse(Console.ReadLine(),out escolha);
                 switch (escolha)
@@ -58,7 +58,7 @@ namespace FinancaDeMesa.Classe.Controller
 
             sbyte escolha = 0;
             do{
-                Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Saldo\n3 - Mostrar Relatorio\n4 - Fazer Logoff");
+                Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Saldo\n3 - Mostrar Relatorio\n4 - Fazer Logoff\n5 - Exportar database");
                 sbyte.TryParse(Console.ReadLine(),out escolha);
                 switch (escolha)
                 {
@@ -73,6 +73,9 @@ namespace FinancaDeMesa.Classe.Controller
                         break;
                     case 4:
                         Logoff();
+                        break;
+                    case 5:
+                        Database.Exportar();
                         break;
                     default:
                         Design.MensagemErro("Valor invalido! ");
@@ -228,18 +231,7 @@ namespace FinancaDeMesa.Classe.Controller
             List<Transacao> lista = Database.BuscarTransacao(Database.usuarioLogado.ID);
             foreach (Transacao item in lista)
             {               
-                switch (item.tipo)
-                {
-                    case tipoTransacao.Despesa:
-                        Saldo -= item.ValorDespesa;
-                        break;
-                    case tipoTransacao.Receita:
-                        Saldo += item.ValorDespesa;
-                        break;
-                    default:
-                        Saldo = 0;
-                        break;
-                    }
+                Saldo += item.ValorDespesa;
             }
             Console.WriteLine($"\nSeu saldo é de R${Saldo.ToString("N2")}\n");
         }
