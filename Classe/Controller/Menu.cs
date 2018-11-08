@@ -61,7 +61,7 @@ namespace FinancaDeMesa.Classe.Controller
                 Console.WriteLine("O que deseja fazer?\n1 - Efetuar transação\n2 - Mostrar Saldo\n3 - Mostrar Relatorio\n4 - Fazer Logoff\n5 - Exportar database");
                 sbyte.TryParse(Console.ReadLine(),out escolha);
                 switch (escolha)
-                {
+                {                
                     case 1:
                         EfetuarTransacao();
                         break;

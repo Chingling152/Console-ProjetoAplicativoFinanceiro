@@ -207,7 +207,7 @@ namespace FinancaDeMesa.Classe
         /// **Apenas leitura**  
         /// Local onde será armazenado o database para ser zipado
         /// </summary>
-        private static readonly string diretorio = Environment.CurrentDirectory + "/Database";
+        private static readonly string diretorio = Environment.CurrentDirectory + @"\Database";
         
         /// <summary>
         /// Cria uma pasta temporaria na pasta do programa e transforma ela em .zip na area de trabalho
@@ -235,12 +235,16 @@ namespace FinancaDeMesa.Classe
                 //cria uma copia dele e manda para a a pasta alvo
                 File.Copy(arquivos[i],alvo);
             }
-            
-            //cria o arquivo zipado e o manda pra area de trabalho
-            ZipFile.CreateFromDirectory(diretorio,Environment.GetFolderPath(Environment.SpecialFolder.Desktop));//erro (acesso negado)
 
-            //Deleta a pasta temporario
-            Directory.Delete(diretorio);
+            string diretorioZip = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\Database.zip";
+            
+            if(File.Exists(diretorioZip)){
+                File.Delete(diretorioZip);
+                System.Console.WriteLine("Deletado ;-;");
+            }
+
+            ZipFile.CreateFromDirectory(diretorio,diretorioZip,CompressionLevel.Optimal,false);//erro (acesso negado)
+            
         }
         #endregion
     }
