@@ -196,14 +196,24 @@ namespace FinancaDeMesa.Classe
         }
         #endregion
 
-        #region Outros
+        #region ZipFiles
+        /// <summary>
+        /// **Apenas leitura**  
+        /// Procura qualquer arquivo .csv e salva o caminho
+        /// </summary>
+        /// <returns></returns>
+        private static readonly string[] arquivos = Directory.GetFiles(Environment.CurrentDirectory, "*.csv"); 
+        /// <summary>
+        /// **Apenas leitura**  
+        /// Local onde será armazenado o database para ser zipado
+        /// </summary>
+        private static readonly string diretorio = Environment.CurrentDirectory + "/Database";
+        
+        /// <summary>
+        /// Cria uma pasta temporaria na pasta do programa e transforma ela em .zip na area de trabalho
+        /// </summary>
         public static void Exportar(){  
-            // procura qualquer arquivo .csv e salva o caminho
-            string[] arquivos = Directory.GetFiles(Environment.CurrentDirectory, "*.csv");
-
-            //variavel do caminho do database
-            string diretorio = Environment.CurrentDirectory + "/Database";
-            
+           
             // se o diretorio não existir ele cria um
             if(!Directory.Exists(diretorio)){
                 Directory.CreateDirectory(diretorio);
@@ -211,12 +221,26 @@ namespace FinancaDeMesa.Classe
 
             //percorre a array arquivos e copia os arquivos armazenas para dentro do database
             for(int i = 0 ; i < arquivos.Length ; i++){
+                //pega informações do nome do arquivo
                 FileInfo info = new FileInfo(arquivos[i]);
                 string nome = info.Name;
-                File.Copy(arquivos[i],$@"{diretorio}\{nome}");
+
+                //salva o diretorio onde a copia será salva
+                string alvo = $@"{diretorio}\{nome}";
+
+                //se o arquivo existir ele o deleta
+                if(File.Exists(alvo)){
+                    File.Delete(alvo);
+                }
+                //cria uma copia dele e manda para a a pasta alvo
+                File.Copy(arquivos[i],alvo);
             }
             
-            ZipFile.CreateFromDirectory(diretorio,Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            //cria o arquivo zipado e o manda pra area de trabalho
+            ZipFile.CreateFromDirectory(diretorio,Environment.GetFolderPath(Environment.SpecialFolder.Desktop));//erro (acesso negado)
+
+            //Deleta a pasta temporario
+            Directory.Delete(diretorio);
         }
         #endregion
     }
