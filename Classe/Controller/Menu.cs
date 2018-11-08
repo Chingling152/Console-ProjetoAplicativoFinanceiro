@@ -164,6 +164,7 @@ namespace FinancaDeMesa.Classe.Controller
                     //flag
                     if(tentativas == 3)
                         Design.MensagemErro("Maximo de tentativas atingido");
+                        Design.MensagemProximo("Aperte qualquer tecla para continuar");
                 }while(tentativas < 3);
             }else{
                 Design.MensagemErro("Não existe nenhuma conta com este email");

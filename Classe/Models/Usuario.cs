@@ -9,10 +9,31 @@ namespace FinancaDeMesa.Classe.Models
         /// Define o ID do usuario
         /// </summary>
         public int ID;
+        
+        private string nome;
+
         /// <summary>
-        /// Deine o nome do usuario
+        /// Define o nome do usuario
         /// </summary>
-        public string Nome;
+        public string Nome{
+            set{
+                bool invalido = false;
+                for(int i = 0 ; i < 10;i++){
+                    if(value.Contains(i.ToString())){
+                        Design.MensagemErro("Valor invalido ;-; não pode numeros");
+                        invalido = true;
+                        break;
+                    }
+                }
+
+                if(!invalido){
+                    nome = value;
+                }
+            }
+            get{
+                return nome;
+            }
+        }
         private string email;
         private string senha;
         /// <summary>

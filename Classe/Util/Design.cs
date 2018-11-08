@@ -45,7 +45,7 @@ namespace FinancaDeMesa.Classe.Util
         /// <param name="mensagem"></param>
         public static void MensagemChamativa(string mensagem){
             Console.OutputEncoding = Encoding.UTF8;
-            Console.WriteLine ($"{new string('_',mensagem.Length + 4)}\n| {mensagem} |\n{new string('‾',mensagem.Length + 4)}");
+            Console.WriteLine ($"{new string('_',mensagem.Length + 4)}\n| {mensagem} |\n{new string('‾',mensagem.Length + 4)}\n");
         }
     }
 }

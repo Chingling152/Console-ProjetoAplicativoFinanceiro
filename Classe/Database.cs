@@ -240,10 +240,12 @@ namespace FinancaDeMesa.Classe
             
             if(File.Exists(diretorioZip)){
                 File.Delete(diretorioZip);
-                System.Console.WriteLine("Deletado ;-;");
             }
 
             ZipFile.CreateFromDirectory(diretorio,diretorioZip,CompressionLevel.Optimal,false);//erro (acesso negado)
+
+            Design.MensagemSucesso("Arquivo Database.zip criado com sucesso no Desktop!");
+            Design.MensagemProximo("Aperte qualquer tecla para continuar");
             
         }
         #endregion

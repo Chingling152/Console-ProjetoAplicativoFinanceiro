@@ -47,10 +47,10 @@ namespace FinancaDeMesa.Classe.Models {
                     }
                     break;
                 case tipoTransacao.Receita:
-                    if(valor >= 0){
-                        ValorDespesa = valor;
+                    if(valor <= 0){
+                        ValorDespesa = valor * (-1);
                     }else{
-                        ValorDespesa = valor * (- 1);
+                        ValorDespesa = valor;
                     }
                     break;
                 default:
