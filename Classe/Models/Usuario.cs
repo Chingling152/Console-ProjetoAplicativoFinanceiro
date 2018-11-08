@@ -37,7 +37,7 @@ namespace FinancaDeMesa.Classe.Models
             }
             set{
                 if(value.Contains('@') && value.Contains('.')){
-                    email = value;
+                    email = value.ToLower();
                 }else{
                     Design.MensagemErro("O Email inserido é invalido");
                 }
@@ -52,7 +52,7 @@ namespace FinancaDeMesa.Classe.Models
                 return senha;
             }
             set{
-                if(value.Length > 8){
+                if(value.Length >= 8){
                     senha = value;
                 }else{
                     Design.MensagemErro("A senha inserida é invalida");
@@ -65,7 +65,7 @@ namespace FinancaDeMesa.Classe.Models
         /// <value>**Valor valido** : data de nascimento com diferença de 18 anos ou mais da data atual</value>
         public System.DateTime DataNascimento{
             set {
-                if(System.DateTime.Now.Year - value.Year < 18 && System.DateTime.Now.Year - value.Year > 100){
+                if(System.DateTime.Now.Year - value.Year < 18 || System.DateTime.Now.Year - value.Year > 100){
                     Design.MensagemErro("Idade invalida");
                 }else{
                     dataNascimento = value.ToShortDateString();
