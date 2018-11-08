@@ -234,20 +234,16 @@ namespace FinancaDeMesa.Classe
                 }
                 //cria uma copia dele e manda para a a pasta alvo
                 File.Copy(arquivos[i],alvo);
-
-            
             }
 
             string diretorioZip = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\Database.zip";
             
             if(File.Exists(diretorioZip)){
                 File.Delete(diretorioZip);
+                System.Console.WriteLine("Deletado ;-;");
             }
 
             ZipFile.CreateFromDirectory(diretorio,diretorioZip,CompressionLevel.Optimal,false);//erro (acesso negado)
-
-            Design.MensagemSucesso("Arquivo Database.zip criado com sucesso no Desktop!");
-            Design.MensagemProximo("Aperte qualquer tecla para continuar");
             
         }
         #endregion

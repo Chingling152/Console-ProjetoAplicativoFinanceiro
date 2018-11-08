@@ -72,7 +72,7 @@ namespace FinancaDeMesa.Classe.Controller
                         MostrarRelatorio();
                         break;
                     case 4:
-                        Logoff();
+                        Database.usuarioLogado = null;
                         break;
                     case 5:
                         Database.Exportar();
@@ -234,13 +234,7 @@ namespace FinancaDeMesa.Classe.Controller
             {               
                 Saldo += item.ValorDespesa;
             }
-            Console.WriteLine($"\nSeu saldo é de R${Saldo.ToString("N2")}\n");
-        }
-        /// <summary>
-        /// Salva o banco de dados em um arquivo .zip
-        /// </summary>
-        private static void ExportarDataBase(){
-
+            Design.MensagemSucesso($"\nSeu saldo é de R${Saldo.ToString("N2")}\n");
         }
 
         #endregion
@@ -252,15 +246,21 @@ namespace FinancaDeMesa.Classe.Controller
         /// 2 - Lista de todos os usuarios 
         /// </summary>
         private static void MostrarRelatorio(){
-
-        }
-        private static void MostrarTodos(){
-
-        }
-        private static void MostrarTransacao(){
-
-        }
-        private static void Logoff(){
+            Console.WriteLine("Insira a opção desejada\n 1 - Relatorio de usuarios cadastrados\n2 - Relatorio de suas transações");
+            sbyte.TryParse(Console.ReadLine(),out sbyte escolha);
+            switch (escolha)
+            {
+                case 1:
+                    Relatorio.GerarRelatorioUsuarios();
+                    break;
+                case 2:
+                    Relatorio.GerarRelatorioUsuario();
+                    break;
+                default:
+                    Design.MensagemErro("Valor invalido");
+                    Design.MensagemProximo("Aperte qualquer tecla para continuar");
+                    break;
+            }
 
         }
         #endregion
