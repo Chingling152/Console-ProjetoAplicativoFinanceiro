@@ -234,6 +234,8 @@ namespace FinancaDeMesa.Classe
                 }
                 //cria uma copia dele e manda para a a pasta alvo
                 File.Copy(arquivos[i],alvo);
+
+            
             }
 
             string diretorioZip = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\Database.zip";
