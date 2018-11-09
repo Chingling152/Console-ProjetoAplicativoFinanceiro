@@ -185,7 +185,7 @@ namespace FinancaDeMesa.Classe.Controller
                 Console.Clear();
                 Design.MensagemInstrucao("Insira o tipo de transação");
 
-                Console.WriteLine("1 - Receita\n2 - Despesa\n3 - Sair");
+                Console.WriteLine("1 - Despesa\n2 - Receita\n3 - Sair");
                 
                 int.TryParse(Console.ReadLine(),out escolha);
 
@@ -234,7 +234,9 @@ namespace FinancaDeMesa.Classe.Controller
             {               
                 Saldo += item.ValorDespesa;
             }
-            Design.MensagemSucesso($"\nSeu saldo é de R${Saldo.ToString("N2")}\n");
+            Console.WriteLine("");
+            Design.MensagemSucesso($"Seu saldo é de R${Saldo.ToString("N2")}");
+            Console.WriteLine("");
         }
 
         #endregion
@@ -246,7 +248,7 @@ namespace FinancaDeMesa.Classe.Controller
         /// 2 - Lista de todos os usuarios 
         /// </summary>
         private static void MostrarRelatorio(){
-            Console.WriteLine("Insira a opção desejada\n 1 - Relatorio de usuarios cadastrados\n2 - Relatorio de suas transações");
+            Console.WriteLine("Insira a opção desejada\n1 - Relatorio de usuarios cadastrados\n2 - Relatorio de suas transações");
             sbyte.TryParse(Console.ReadLine(),out sbyte escolha);
             switch (escolha)
             {

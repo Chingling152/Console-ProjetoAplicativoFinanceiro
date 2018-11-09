@@ -26,16 +26,19 @@ namespace FinancaDeMesa.Classe.Models
             {
                 if(item != null){
                     Paragraph[] informacao = new Paragraph[3];
-                    foreach (Paragraph par in informacao){
-                        secao.AddParagraph();
+                    for (int i = 0;i < 3;i++){
+                        informacao[i] = secao.AddParagraph();
                     }
-                    secao.AddParagraph().AppendText("\n");
                     informacao[0].AppendText($"Nome : {item.Nome}");
                     informacao[1].AppendText($"Email : {item.Email}");
                     informacao[2].AppendText($"Data De Nascimento : {item.dataNascimento}");
                     secao.AddParagraph().AppendText("\n");
                 }
             }
+
+            documento.SaveToFile($@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\Todos Os Usuarios.docx",FileFormat.Docx);
+            Design.MensagemSucesso($@"Arquivo relatorio Todos Os Usuarios.docx criado na area de trabalho");
+            Design.MensagemProximo("Aperte qualquer botão para continuar (exceto o printscreen)");
 
         }
 
@@ -62,18 +65,16 @@ namespace FinancaDeMesa.Classe.Models
                 {
                     if(tra != null){
                         Paragraph[] informacao = new Paragraph[4];
-                        foreach (Paragraph item in informacao)
-                        {
-                            secao.AddParagraph();
+                        for (int i = 0;i < 4;i++){
+                            informacao[i] = secao.AddParagraph();
                         }
 
                         Paragraph tituloTransacao  = secao.AddParagraph();
                         tituloTransacao.AppendText($"Transação {tra.ID}");
-                        secao.AddParagraph().AppendText("\n");
                         informacao[0].AppendText($"Tipo : {tra.tipo}");
                         informacao[1].AppendText($"Data : {tra.dataTransacao}");
-                        informacao[2].AppendText($"Descrição : {tra.dataTransacao}");
-                        informacao[3].AppendText($"Data da transação : {tra.dataTransacao}");
+                        informacao[2].AppendText($"Descrição : {tra.Descricao}");
+                        informacao[3].AppendText($"Valor : R${tra.ValorDespesa.ToString("N2")}");
                         secao.AddParagraph().AppendText("\n");
                     }
                 }
