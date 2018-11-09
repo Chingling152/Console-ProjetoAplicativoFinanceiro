@@ -63,14 +63,15 @@ namespace FinancaDeMesa.Classe.Models {
         /// </summary>
         /// <param name="data">Qualquer valor de data</param>
         public void ValidarData(System.DateTime data){
-            if(data.Year >= DateTime.Now.Year ){
-                if(data.Month >= DateTime.Now.Month ){
-                    if(data.Day > DateTime.Now.Day){
+            if(data.Year >= DateTime.Now.Year || data.Year < 1500){
+                if(data.Month >= DateTime.Now.Month || data.Year < 1500){
+                    if(data.Day > DateTime.Now.Day || data.Year < 1500){
+                        Design.MensagemErro($"A data {data} é invalida");
                         data = DateTime.Now;
                     }
                 }
             }
-            dataTransacao =data.ToShortDateString();
+            dataTransacao = data.ToShortDateString();
         }
     } 
 }
